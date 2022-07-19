@@ -56,7 +56,7 @@
     function login() {
       $.ajax({
           type: "POST",
-          url: "/home/Login_account",
+          url: "/home/Login_account", 
           dataType: "text",
           data: JSON.stringify({
             "username": document.getElementById("input_username").value,
