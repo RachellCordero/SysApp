@@ -1,0 +1,79 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <title>Login</title>
+
+    @Styles.Render("~/Login/css")
+</head>
+<body>
+    <div id="login-page">
+        <!--logo start-->
+        <br />
+        <h1 class="logo" style="text-align:center;color:#219070;font-size:25px;font-family:Trebuchet MS', sans-serif" !important><b> SYSTEM<span> APP</span></b></h1>
+        <!--logo end-->
+        <div class="container">
+            <div class="form-login">
+                <h2 class="form-login-heading">sign in now</h2>
+                <div class="login-wrap">
+                    <input type="text" class="form-control" placeholder="Username" id="input_username" autofocus>
+                    <br>
+                    <input type="password" class="form-control" placeholder="Password" id="input_password">
+                    <label class="checkbox">
+
+                    </label>
+                    <button class="btn btn-theme btn-block" type="submit" onclick="login()"><i class="fa fa-lock"></i> SIGN IN</button>
+                    <hr>
+                    <div class="registration">
+                        Don't have an account yet?<br />
+                        <a class="" href="/Home/SignUp">
+                            Create an account
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    @Scripts.Render("~/Login/js")
+    <script>
+    $.backstretch(["/lib/img/login2-bg.jpg"], {
+      speed: 500
+    });
+
+
+    function login() {
+      $.ajax({
+          type: "POST",
+          url: "/home/Login_account",
+          dataType: "text",
+          data: JSON.stringify({
+            "username": document.getElementById("input_username").value,
+            "password": document.getElementById("input_password").value
+
+          }),
+          contentType: "application/json; charset=utf-8",
+          success: function (data) {
+            window.location.replace("/home/Accounts?id="+data);
+          },
+          error: function (textStatus, errorThrown) {
+              // Success = false;//doesn't go here
+              alert("Error")
+          }
+      });
+    }
+
+    </script>
+</body>
+</html>

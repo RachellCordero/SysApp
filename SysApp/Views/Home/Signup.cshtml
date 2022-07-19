@@ -1,0 +1,75 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <title>Signup</title>
+
+    @Styles.Render("~/Login/css")
+</head>
+<body>
+    <div id="login-page">
+        <h1 class="logo" style="text-align:center;color:#219070;font-size:25px;font-family:Trebuchet MS', sans-serif" !important><b> SYSTEM<span> APP</span></b></h1>
+        <div class="container">
+            <form class="form-login">
+                <h2 class="form-login-heading">sign up now</h2>
+                <div class="login-wrap">
+                    <input type="text" class="form-control" placeholder="Username" id="username" autofocus>
+                    <br>
+                    <input type="password" class="form-control" placeholder="Password" id="password">
+                    <br>
+                    <input type="text" class="form-control" placeholder="First Name" id="FirstName">
+                    <br>
+                    <input type="text" class="form-control" placeholder="Last Name" id="LastName">
+                    <br>
+                    <input type="text" class="form-control" placeholder="Email Address" id="Email">
+                    <br>
+
+
+                    <button class="btn btn-theme btn-block" onclick="signup()"><i class="fa fa-lock"></i> SIGN UP</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+    @Scripts.Render("~/Login/js")
+<script>
+    $.backstretch(["/lib/img/login3-bg.jpg"], {
+      speed: 500
+    });
+    function signup(){
+      $.ajax({
+          type: "POST",
+          url: "/Home/SignUp_cmd",
+          dataType: "text",
+          data: JSON.stringify({
+            "username": document.getElementById("username").value,
+            "password": document.getElementById("password").value,
+            "FirstName": document.getElementById("FirstName").value,
+            "LastName": document.getElementById("LastName").value,
+            "Email": document.getElementById("Email").value
+          }),
+          contentType: "application/json; charset=utf-8",
+          success: function (data) {
+              alert("Successfully registered");
+              var url = '@Url.Action("Login", "Home")';
+              window.location.href = url;
+          },
+          error: function (textStatus, errorThrown) {
+              // Success = false;//doesn't go here
+              alert("Error")
+          }
+      });
+    }
+</script>
+</body>
+</html>
